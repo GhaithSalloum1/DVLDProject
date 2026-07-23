@@ -20,4 +20,4 @@ A robust desktop/enterprise management system built with **C#** and **ADO.NET** 
 
 * ## 💾 Database Setup
 
-For detailed instructions on restoring the `.bak` file or running the T-SQL setup script, see the [Database Documentation](/Database/README.md).
+For detailed instructions on restoring the `.bak` file or running the T-SQL setup script, see the [Database Documentation](DataBase/README.md).
