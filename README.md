@@ -18,6 +18,6 @@ A robust desktop/enterprise management system built with **C#** and **ADO.NET** 
 * **Detained Licenses:** Tracks fines, detention records, and license release requests.
 * **User & Role Management:** Internal system user authentication and action tracking.
 
-* ## 💾 Database Setup
+## 💾 Database Setup
 
 For detailed instructions on restoring the `.bak` file or running the T-SQL setup script, see the [Database Documentation](DataBase/README.md).
