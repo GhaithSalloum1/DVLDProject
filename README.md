@@ -17,3 +17,7 @@ A robust desktop/enterprise management system built with **C#** and **ADO.NET** 
 * **License Management:** Custom license classification, age validation, validity durations, and issuance.
 * **Detained Licenses:** Tracks fines, detention records, and license release requests.
 * **User & Role Management:** Internal system user authentication and action tracking.
+
+* ## 💾 Database Setup
+
+For detailed instructions on restoring the `.bak` file or running the T-SQL setup script, see the [Database Documentation](./Database/README.md).
