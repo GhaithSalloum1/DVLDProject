@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace DVLD_DataAccess
     {
         public static bool GetPersonInfoByID(int PersonID, ref string FirstName, ref string SecondName,
             ref string ThirdName, ref string LastName, ref string NationalNo, ref DateTime DateOfBirth,
-            ref short Gender, ref string Address, ref string Phone, ref string Email,
+            ref byte Gender, ref string Address, ref string Phone, ref string Email,
             ref int NationalityCountryID, ref string ImagePath)
         {
 
@@ -58,6 +59,7 @@ namespace DVLD_DataAccess
                     }
                     catch (Exception)
                     {
+                        // TODO: logging here (going to implement later)
                         throw;
                     }
                 }
@@ -66,9 +68,9 @@ namespace DVLD_DataAccess
             return isFound;
         }
     
-        public static bool GetPersonInfoByNationalNo(string NationalNo, ref int PersonID, ref string FirstName, ref string SecondName,
-            ref string ThirdName, ref string LastName, ref DateTime DateOfBirth,
-            ref short Gender, ref string Address, ref string Phone, ref string Email,
+        public static bool GetPersonInfoByNationalNo(string NationalNo, ref string FirstName, ref string SecondName,
+            ref string ThirdName, ref string LastName, ref int PersonID, ref DateTime DateOfBirth,
+            ref byte Gender, ref string Address, ref string Phone, ref string Email,
             ref int NationalityCountryID, ref string ImagePath)
         {
             bool isFound = false;
@@ -112,6 +114,7 @@ namespace DVLD_DataAccess
                     }
                     catch (Exception)
                     {
+                        // TODO: logging here (going to implement later)
                         throw;
                     }
                 }
@@ -121,7 +124,7 @@ namespace DVLD_DataAccess
 
         public static int AddNewPerson(string FirstName, string SecondName,
             string ThirdName, string LastName, string NationalNo, DateTime DateOfBirth,
-            short Gender, string Address, string Phone, string Email,
+            byte Gender, string Address, string Phone, string Email,
             int NationalityCountryID, string ImagePath)
         {
 
@@ -139,16 +142,16 @@ namespace DVLD_DataAccess
                 {
                     command.Parameters.AddWithValue("@FirstName", FirstName);
                     command.Parameters.AddWithValue("@SecondName", SecondName);
-                    command.Parameters.AddWithValue("@ThirdName", string.IsNullOrEmpty(ThirdName) ? (object)DBNull.Value : ThirdName);
+                    command.Parameters.AddWithValue("@ThirdName", string.IsNullOrWhiteSpace(ThirdName) ? (object)DBNull.Value : ThirdName);
                     command.Parameters.AddWithValue("@LastName", LastName);
                     command.Parameters.AddWithValue("@NationalNo", NationalNo);
                     command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
                     command.Parameters.AddWithValue("@Gender", Gender);
                     command.Parameters.AddWithValue("@Address", Address);
                     command.Parameters.AddWithValue("@Phone", Phone);
-                    command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(Email) ? (object)DBNull.Value : Email);
+                    command.Parameters.AddWithValue("@Email", string.IsNullOrWhiteSpace(Email) ? (object)DBNull.Value : Email);
                     command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
-                    command.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(ImagePath) ? (object)DBNull.Value : ImagePath);
+                    command.Parameters.AddWithValue("@ImagePath", string.IsNullOrWhiteSpace(ImagePath) ? (object)DBNull.Value : ImagePath);
 
                     try
                     {
@@ -163,6 +166,7 @@ namespace DVLD_DataAccess
                     catch (Exception)
                     {
                         personID = -1;
+                        // TODO: logging here (going to implement later)
                         throw;
                     }
                 }
@@ -207,7 +211,7 @@ namespace DVLD_DataAccess
                     }
                     catch (Exception)
                     {
-
+                        // TODO: logging here (going to implement later)
                         throw;
                     }
                 }
@@ -217,7 +221,148 @@ namespace DVLD_DataAccess
 
         }
         
+        public static bool UpdatePerson(int PersonID, string FirstName, string SecondName,
+            string ThirdName, string LastName, string NationalNo, DateTime DateOfBirth,
+            byte Gender, string Address, string Phone, string Email,
+            int NationalityCountryID, string ImagePath)
+        {
+            int rawsAffected = 0;
 
-    
+            string query = @"UPDATE People SET FirstName = @FirstName, SecondName = @SecondName, ThirdName = @ThirdName,
+                             LastName = @LastName, NationalNo = @NationalNo, DateOfBirth = @DateOfBirth,
+                             Gender = @Gender, Address = @Address, Phone = @Phone, Email = @Email, NationalityCountryID = @NationalityCountryID, ImagePath = @ImagePath
+                             WHERE PersonID = @PersonID";
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+                    command.Parameters.AddWithValue("@FirstName", FirstName);
+                    command.Parameters.AddWithValue("@SecondName", SecondName);
+                    command.Parameters.AddWithValue("@ThirdName", string.IsNullOrWhiteSpace(ThirdName) ? (object)DBNull.Value : ThirdName);
+                    command.Parameters.AddWithValue("@LastName", LastName);
+                    command.Parameters.AddWithValue("@NationalNo", NationalNo);
+                    command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
+                    command.Parameters.AddWithValue("@Gender", Gender);
+                    command.Parameters.AddWithValue("@Address", Address);
+                    command.Parameters.AddWithValue("@Phone", Phone);
+                    command.Parameters.AddWithValue("@Email", string.IsNullOrWhiteSpace(Email) ? (object)DBNull.Value : Email);
+                    command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
+                    command.Parameters.AddWithValue("@ImagePath", string.IsNullOrWhiteSpace(ImagePath) ? (object)DBNull.Value : ImagePath);
+
+                    try
+                    {
+                        connection.Open();
+                        rawsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        rawsAffected = -1;
+                        // TODO: logging here (going to implement later)
+                        throw;
+                    }
+                }
+            }
+
+                    return rawsAffected > 0;
+
+
+        }
+
+        public static bool DeletePerson(int PersonID)
+        {
+        
+            int rawsAffected = 0;
+
+            string query = @"DELETE FROM People WHERE PersonID = @PersonID";
+
+            using(SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using(SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    command.Parameters.AddWithValue("@PersonID", PersonID);
+
+                    try
+                    {
+                        connection.Open();
+                        rawsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        // TODO: logging here (going to implement later)
+                        throw;
+                    }
+                }
+            }
+
+            return rawsAffected > 0;
+        }
+
+        public static bool IsPersonExists(int PersonID)
+        {
+            bool isExists = false;
+
+            using(SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = @"SELECT COUNT(*) FROM People WHERE PersonID = @PersonID";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@PersonID", PersonID);
+                    try
+                    {
+                        connection.Open();
+                        object count = cmd.ExecuteScalar();
+                        if (count != null && (int)count > 0)
+                        {
+                            isExists = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // TODO: logging here (going to implement later)
+                        throw;
+                    }
+                }
+            }
+            
+            return isExists;
+        }
+
+        public static bool IsPersonExists(string NationalNo)
+        {
+            bool isExists = false;
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                string query = @"SELECT COUNT(*) FROM People WHERE NationalNo = @NationalNo";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@NationalNo", NationalNo);
+                    try
+                    {
+                        connection.Open();
+                        object count = cmd.ExecuteScalar();
+                        if (count != null && (int)count > 0)
+                        {
+                            isExists = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // TODO: logging here (going to implement later)
+                        throw;
+                    }
+                }
+            }
+
+            return isExists;
+        }
+
+
+        //helper methods will be implemented later to reduce code duplication and improve maintainability,
+        //such as methods for executing queries, handling exceptions, and mapping data from SqlDataReader to objects.
+
     }
 }
