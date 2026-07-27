@@ -1,8 +1,12 @@
-﻿using System;
+﻿using DVLD_DataAccess;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DVLD_Business
 {
@@ -24,7 +28,14 @@ namespace DVLD_Business
         public string Phone { get; set; }
         public string Email { get; set; }
         public int NationalityCountryID { get; set; }
-        public string ImagePath { get; set; }
+
+        private string _ImagePath;
+        public string ImagePath
+        {
+            get { return _ImagePath; }
+            set { _ImagePath = value; }
+        }
+        
 
         public clsPerson()
         {
@@ -66,6 +77,122 @@ namespace DVLD_Business
 
             Mode = enMode.Update;
         }
+
+        private bool _AddNewPerson()
+        {
+            return (this.PersonID = clsPersonData.AddNewPerson(this.FirstName, this.SecondName, this.ThirdName,
+                this.LastName, this.NationalNo, this.DateOfBirth, this.Gender, this.Address, 
+                this.Phone, this.Email, this.NationalityCountryID, this.ImagePath)) > 0;
+        }
+
+        private bool _UpdatePerson()
+        {
+            return clsPersonData.UpdatePerson(this.PersonID, this.FirstName, this.SecondName, this.ThirdName,
+                this.LastName, this.NationalNo, this.DateOfBirth, this.Gender, this.Address,
+                this.Phone, this.Email, this.NationalityCountryID, this.ImagePath);
+        }
+
+        public static clsPerson Find(int PersonID)
+        {
+            string FirstName = "";
+            string SecondName = "";
+            string ThirdName = "";
+            string LastName = "";
+            string NationalNo = "";
+            DateTime DateOfBirth = DateTime.Now;
+            byte Gender = 0;
+            string Address = "";
+            string Phone = "";
+            string Email = "";
+            int NationalityCountryID = -1;
+            string ImagePath = "";
+
+            bool IsFound = clsPersonData.GetPersonInfoByID(PersonID, ref FirstName, ref SecondName, ref ThirdName,
+                ref LastName, ref NationalNo, ref DateOfBirth, ref Gender, ref Address, ref Phone, ref Email, ref NationalityCountryID
+                , ref ImagePath);
+
+            if (IsFound)
+            {
+                return new clsPerson(PersonID, FirstName, SecondName, ThirdName, LastName, NationalNo, DateOfBirth, Gender, Address, Phone, Email, NationalityCountryID, ImagePath);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static clsPerson Find(string NationalNo)
+        {
+            int PersonID = -1;
+            string FirstName = "";
+            string SecondName = "";
+            string ThirdName = "";
+            string LastName = "";
+            DateTime DateOfBirth = DateTime.Now;
+            byte Gender = 0;
+            string Address = "";
+            string Phone = "";
+            string Email = "";
+            int NationalityCountryID = -1;
+            string ImagePath = "";
+
+            bool IsFound = clsPersonData.GetPersonInfoByNationalNo(NationalNo, ref FirstName, ref SecondName, ref ThirdName,
+                ref LastName, ref PersonID, ref DateOfBirth, ref Gender, ref Address, ref Phone, ref Email, ref NationalityCountryID
+                , ref ImagePath);
+
+            if (IsFound)
+            {
+                return new clsPerson(PersonID, FirstName, SecondName, ThirdName, LastName, NationalNo, DateOfBirth, Gender, Address, Phone, Email, NationalityCountryID, ImagePath);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool Save()
+        {
+            switch (Mode)
+            {
+                case enMode.AddNew:
+                    if (_AddNewPerson())
+                    {
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                case enMode.Update:
+                    return _UpdatePerson();
+
+                default:
+                    return false;
+            }
+        }
+        
+        public static DataTable GetAllPeople()
+        {
+            return clsPersonData.GetAllPeople();
+        }
+       
+        public static bool DeletePerson(int ID)
+        {
+            return clsPersonData.DeletePerson(ID);
+        }
+        
+        public static bool IsPersonExists(int PersonID)
+        {
+            return clsPersonData.IsPersonExists(PersonID);
+        }
+        
+        public static bool IsPersonExists(string NationalNo)
+        {
+            return clsPersonData.IsPersonExists(NationalNo);
+        }
+
+
 
     }
 }
