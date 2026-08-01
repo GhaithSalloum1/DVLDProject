@@ -31,17 +31,108 @@ namespace DVLDProject.People
 
         private void bgWorkerListPeople_DoWork(object sender, DoWorkEventArgs e)
         {
-            DataTable dt = DVLD_Business.clsPerson.GetAllPeople();
+            DataTable dt = _dtListPeople;
             e.Result = dt;
         }
 
         private void frmListPeople1_Load(object sender, EventArgs e)
         {
             dgvListPeople.DataSource = _dtListPeople;
+            cbFilter.SelectedIndex = 0;
+            lblTotal.Text = dgvListPeople.Rows.Count.ToString() + " Records";
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
+
+        }
+
+        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtbSearch.Visible = (cbFilter.Text != "None");
+
+            if (txtbSearch.Visible)
+            {
+                txtbSearch.Text = "";
+                txtbSearch.Focus();
+            }
+        }
+
+        private void txtbSearch_TextChanged(object sender, EventArgs e)
+        {
+            string FilterColumn = "";
+
+            switch (cbFilter.Text)
+            {
+                case "Person ID":
+                    FilterColumn = "PersonID";
+                    break;
+
+                case "National No":
+                    FilterColumn = "NationalNo";
+                    break;
+
+                case "First Name":
+                    FilterColumn = "FirstName";
+                    break;
+
+                case "Second Name":
+                    FilterColumn = "SecondName";
+                    break;
+
+                case "Third Name":
+                    FilterColumn = "ThirdName";
+                    break;
+
+                case "Last Name":
+                    FilterColumn = "LastName";
+                    break;
+
+                case "Nationality":
+                    FilterColumn = "CountryName";
+                    break;
+
+                case "Gender":
+                    FilterColumn = "Gender";
+                    break;
+
+                case "Phone":
+                    FilterColumn = "Phone";
+                    break;
+
+                case "Email":
+                    FilterColumn = "Email";
+                    break;
+
+                default:
+                    FilterColumn = "None";
+                    break;
+            }
+
+            DataView dv = new DataView(_dtListPeople);
+
+            if (string.IsNullOrEmpty(txtbSearch.Text) || txtbSearch.Text == "None") 
+            {
+                dv.RowFilter = "";
+            }
+            else if (FilterColumn == "PersonID")
+            {
+                if (int.TryParse(txtbSearch.Text, out int numericValue))
+                {
+                    dv.RowFilter = string.Format("{0} = {1}", FilterColumn, numericValue);
+                }
+                else
+                {
+                    dv.RowFilter = "1 = 0";
+                }
+            }
+            else
+            {
+                dv.RowFilter = string.Format("{0} LIKE '{1}%'", FilterColumn, txtbSearch.Text);
+            }
+
+            dgvListPeople.DataSource = dv;
+            lblTotal.Text = dgvListPeople.Rows.Count.ToString() + " Records";
 
         }
     }

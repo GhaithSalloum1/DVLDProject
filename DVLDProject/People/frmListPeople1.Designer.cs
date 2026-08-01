@@ -34,6 +34,9 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.txtbSearch = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPeople)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -117,6 +120,37 @@
             this.cbFilter.Size = new System.Drawing.Size(185, 24);
             this.cbFilter.TabIndex = 8;
             this.cbFilter.Text = "None";
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            // 
+            // txtbSearch
+            // 
+            this.txtbSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
+            this.txtbSearch.Location = new System.Drawing.Point(306, 239);
+            this.txtbSearch.Name = "txtbSearch";
+            this.txtbSearch.Size = new System.Drawing.Size(226, 22);
+            this.txtbSearch.TabIndex = 9;
+            this.txtbSearch.Visible = false;
+            this.txtbSearch.TextChanged += new System.EventHandler(this.txtbSearch_TextChanged);
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(9, 656);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(62, 25);
+            this.lblDescription.TabIndex = 10;
+            this.lblDescription.Text = "Total:";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(77, 660);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(18, 20);
+            this.lblTotal.TabIndex = 11;
+            this.lblTotal.Text = "0";
             // 
             // frmListPeople1
             // 
@@ -124,6 +158,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1221, 695);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.lblDescription);
+            this.Controls.Add(this.txtbSearch);
             this.Controls.Add(this.cbFilter);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dgvListPeople);
@@ -149,5 +186,8 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.TextBox txtbSearch;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Label lblTotal;
     }
 }
