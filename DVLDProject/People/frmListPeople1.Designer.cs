@@ -37,6 +37,7 @@
             this.txtbSearch = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
+            this.btnAddNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPeople)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -152,12 +153,23 @@
             this.lblTotal.TabIndex = 11;
             this.lblTotal.Text = "0";
             // 
+            // btnAddNew
+            // 
+            this.btnAddNew.Image = global::DVLDProject.Properties.Resources.Add_Person_40;
+            this.btnAddNew.Location = new System.Drawing.Point(1149, 210);
+            this.btnAddNew.Name = "btnAddNew";
+            this.btnAddNew.Size = new System.Drawing.Size(60, 53);
+            this.btnAddNew.TabIndex = 12;
+            this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
+            // 
             // frmListPeople1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(1221, 695);
+            this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.txtbSearch);
@@ -166,6 +178,7 @@
             this.Controls.Add(this.dgvListPeople);
             this.Controls.Add(this.lblFilterBy);
             this.Controls.Add(this.btnClose);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MinimumSize = new System.Drawing.Size(1239, 742);
             this.Name = "frmListPeople1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -189,5 +202,6 @@
         private System.Windows.Forms.TextBox txtbSearch;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Button btnAddNew;
     }
 }

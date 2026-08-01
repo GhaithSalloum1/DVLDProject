@@ -17,8 +17,6 @@ namespace DVLDProject.People
         private static DataTable _dtListPeople = DVLD_Business.clsPerson.GetAllPeople();
 
 
-
-
         public frmListPeople1()
         {
             InitializeComponent();
@@ -134,6 +132,12 @@ namespace DVLDProject.People
             dgvListPeople.DataSource = dv;
             lblTotal.Text = dgvListPeople.Rows.Count.ToString() + " Records";
 
+        }
+
+        private void btnAddNew_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmAddUpdatePerson();
+            frm.ShowDialog();
         }
     }
 }
