@@ -66,7 +66,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblAddNewPerson = new System.Windows.Forms.Label();
+            this.lblAddUpdatePerson = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.lblPersonID = new System.Windows.Forms.Label();
@@ -494,16 +494,16 @@
             this.groupBox1.TabIndex = 74;
             this.groupBox1.TabStop = false;
             // 
-            // lblAddNewPerson
+            // lblAddUpdatePerson
             // 
-            this.lblAddNewPerson.AutoSize = true;
-            this.lblAddNewPerson.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddNewPerson.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblAddNewPerson.Location = new System.Drawing.Point(403, 25);
-            this.lblAddNewPerson.Name = "lblAddNewPerson";
-            this.lblAddNewPerson.Size = new System.Drawing.Size(218, 37);
-            this.lblAddNewPerson.TabIndex = 75;
-            this.lblAddNewPerson.Text = "Add New Person";
+            this.lblAddUpdatePerson.AutoSize = true;
+            this.lblAddUpdatePerson.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddUpdatePerson.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAddUpdatePerson.Location = new System.Drawing.Point(403, 25);
+            this.lblAddUpdatePerson.Name = "lblAddUpdatePerson";
+            this.lblAddUpdatePerson.Size = new System.Drawing.Size(218, 37);
+            this.lblAddUpdatePerson.TabIndex = 75;
+            this.lblAddUpdatePerson.Text = "Add New Person";
             // 
             // label13
             // 
@@ -544,11 +544,12 @@
             this.Controls.Add(this.lblPersonID);
             this.Controls.Add(this.pictureBox11);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.lblAddNewPerson);
+            this.Controls.Add(this.lblAddUpdatePerson);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmAddUpdatePerson";
             this.Text = "Add/Update Person";
+            this.Load += new System.EventHandler(this.frmAddUpdatePerson_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
@@ -607,7 +608,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblAddNewPerson;
+        private System.Windows.Forms.Label lblAddUpdatePerson;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.Label lblPersonID;
