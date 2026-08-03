@@ -113,7 +113,7 @@ namespace DVLDProject.People
             {
                 dv.RowFilter = "";
             }
-            else if (FilterColumn == "PersonID")
+            else if (FilterColumn == "PersonID" || FilterColumn == "Gender")
             {
                 if (int.TryParse(txtbSearch.Text, out int numericValue))
                 {
