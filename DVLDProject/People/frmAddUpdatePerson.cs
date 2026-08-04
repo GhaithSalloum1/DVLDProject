@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DVLD_Business;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace DVLDProject.People
 {
@@ -46,6 +47,14 @@ namespace DVLDProject.People
         {
             clsCountry Country = clsCountry.Find(cbCountry.SelectedItem.ToString());
 
+            if (!this.ValidateChildren())
+            {
+                //Here we dont continue becuase the form is not valid
+                MessageBox.Show("Some fileds are not valide!, put the mouse over the red icon(s) to see the erro", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+            }
+
             _Person.FirstName = txtFirstName.Text.Trim();
             _Person.SecondName = txtSecondName.Text.Trim();
             _Person.ThirdName = txtThirdName.Text.Trim();
@@ -78,6 +87,47 @@ namespace DVLDProject.People
         {
             _FillCountriesInComboBox();
             cbCountry.SelectedIndex = cbCountry.FindString("Syria");
+        }
+
+        private void txtBox_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox temp = sender as TextBox;
+
+            if (string.IsNullOrWhiteSpace(temp.Text.Trim()))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(temp, "This field is required");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(temp, null);
+            }
+        }
+
+        private void txtNationalNo_Validating(object sender, CancelEventArgs e)
+        {
+
+            if (string.IsNullOrWhiteSpace(txtNationalNo.Text.Trim()))   
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtNationalNo, "This field is required");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtNationalNo, null);
+            }
+
+            if (clsPerson.IsPersonExists(txtNationalNo.Text.Trim()))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError(txtNationalNo, "A person with this National Number already exists");    
+            }
+            else
+            {
+                errorProvider1.SetError(txtNationalNo, null);
+            }
         }
     }
 }
