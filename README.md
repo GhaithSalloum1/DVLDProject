@@ -13,7 +13,7 @@ A robust desktop/enterprise management system built with **C#** and **ADO.NET** 
 ### ✨ Core Features
 * **People & Driver Registry:** Centralized record-keeping for personal profiles, nationalities, and driver histories.
 * **Application Processing:** Handles flexible application types, dynamic fees, and application statuses.
-* **Testing Pipeline:** Manages test appointments and results across various testing stages (e.g., Vision, Written, Road tests).
+* **Testing Pipeline:** Manages test appointments and results across various testing stages (e.g. , Vision, Written, Road tests).
 * **License Management:** Custom license classification, age validation, validity durations, and issuance.
 * **Detained Licenses:** Tracks fines, detention records, and license release requests.
 * **User & Role Management:** Internal system user authentication and action tracking.
