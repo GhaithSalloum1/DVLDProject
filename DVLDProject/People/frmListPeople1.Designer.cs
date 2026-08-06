@@ -28,7 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvListPeople = new System.Windows.Forms.DataGridView();
+            this.cmsPeople = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addNewPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sendEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.callPhoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bgWorkerListPeople = new System.ComponentModel.BackgroundWorker();
             this.lblFilterBy = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
@@ -39,6 +49,7 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnAddNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPeople)).BeginInit();
+            this.cmsPeople.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +62,7 @@
             this.dgvListPeople.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvListPeople.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvListPeople.ColumnHeadersHeight = 29;
+            this.dgvListPeople.ContextMenuStrip = this.cmsPeople;
             this.dgvListPeople.Location = new System.Drawing.Point(12, 269);
             this.dgvListPeople.Name = "dgvListPeople";
             this.dgvListPeople.ReadOnly = true;
@@ -58,6 +70,75 @@
             this.dgvListPeople.RowTemplate.Height = 24;
             this.dgvListPeople.Size = new System.Drawing.Size(1197, 370);
             this.dgvListPeople.TabIndex = 4;
+            this.dgvListPeople.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListPeople_CellContentDoubleClick);
+            // 
+            // cmsPeople
+            // 
+            this.cmsPeople.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsPeople.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showDetailsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addNewPersonToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.sendEmailToolStripMenuItem,
+            this.callPhoneToolStripMenuItem});
+            this.cmsPeople.Name = "cmsPeople";
+            this.cmsPeople.Size = new System.Drawing.Size(215, 212);
+            // 
+            // showDetailsToolStripMenuItem
+            // 
+            this.showDetailsToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.PersonDetails_32;
+            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(214, 28);
+            this.showDetailsToolStripMenuItem.Text = "Show Details";
+            this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            // 
+            // addNewPersonToolStripMenuItem
+            // 
+            this.addNewPersonToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.AddPerson_32;
+            this.addNewPersonToolStripMenuItem.Name = "addNewPersonToolStripMenuItem";
+            this.addNewPersonToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.addNewPersonToolStripMenuItem.Text = "Add New Person";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.edit_32;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.Delete_32;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
+            // sendEmailToolStripMenuItem
+            // 
+            this.sendEmailToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.send_email_32;
+            this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.sendEmailToolStripMenuItem.Text = "Send Email";
+            // 
+            // callPhoneToolStripMenuItem
+            // 
+            this.callPhoneToolStripMenuItem.Image = global::DVLDProject.Properties.Resources.call_32;
+            this.callPhoneToolStripMenuItem.Name = "callPhoneToolStripMenuItem";
+            this.callPhoneToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.callPhoneToolStripMenuItem.Text = "Call Phone";
             // 
             // bgWorkerListPeople
             // 
@@ -185,6 +266,7 @@
             this.Text = "List People";
             this.Load += new System.EventHandler(this.frmListPeople1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPeople)).EndInit();
+            this.cmsPeople.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -203,5 +285,14 @@
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Button btnAddNew;
+        private System.Windows.Forms.ContextMenuStrip cmsPeople;
+        private System.Windows.Forms.ToolStripMenuItem showDetailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem addNewPersonToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem callPhoneToolStripMenuItem;
     }
 }
