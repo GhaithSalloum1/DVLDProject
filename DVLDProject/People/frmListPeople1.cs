@@ -8,6 +8,7 @@ using DVLD_Business;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DVLDProject.People.Controls;
 
 namespace DVLDProject.People
 {
@@ -137,6 +138,21 @@ namespace DVLDProject.People
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             Form frm = new frmAddUpdatePerson();
+            frm.ShowDialog();
+        }
+
+        private void dgvListPeople_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Form frm = new FrmShowPersonInfo((int)dgvListPeople.CurrentRow.Cells[0].Value);
+            frm.ShowDialog();
+            
+            
+
+        }
+
+        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new FrmShowPersonInfo((int)dgvListPeople.CurrentRow.Cells[0].Value);
             frm.ShowDialog();
         }
     }
