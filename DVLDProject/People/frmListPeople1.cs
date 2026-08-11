@@ -23,6 +23,13 @@ namespace DVLDProject.People
             InitializeComponent();
         }
 
+        private void _RefreshPeople()
+        {
+            _dtListPeople = DVLD_Business.clsPerson.GetAllPeople();
+            dgvListPeople.DataSource = _dtListPeople;
+            lblTotal.Text = dgvListPeople.Rows.Count.ToString() + " Records";
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             //frmListPeople1.ActiveForm.Close();
@@ -139,15 +146,13 @@ namespace DVLDProject.People
         {
             Form frm = new frmAddUpdatePerson();
             frm.ShowDialog();
+            _RefreshPeople();
         }
 
         private void dgvListPeople_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Form frm = new FrmShowPersonInfo((int)dgvListPeople.CurrentRow.Cells[0].Value);
             frm.ShowDialog();
-            
-            
-
         }
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,5 +160,25 @@ namespace DVLDProject.People
             Form frm = new FrmShowPersonInfo((int)dgvListPeople.CurrentRow.Cells[0].Value);
             frm.ShowDialog();
         }
+
+        private void addNewPersonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmAddUpdatePerson();
+            frm.ShowDialog();
+            _RefreshPeople();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form frm = new frmAddUpdatePerson((int)dgvListPeople.CurrentRow.Cells[0].Value);
+            frm.ShowDialog();
+            _RefreshPeople();
+        }
+
     }
 }
