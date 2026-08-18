@@ -170,6 +170,16 @@ namespace DVLDProject.People
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to delete this person with the ID " + dgvListPeople.CurrentRow.Cells[0].Value + "?", "Delete Person", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                clsPerson.DeletePerson((int)dgvListPeople.CurrentRow.Cells[0].Value);
+                MessageBox.Show("Person with ID " + dgvListPeople.CurrentRow.Cells[0].Value + " has been deleted successfully.", "Delete Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _RefreshPeople();
+            }
+            else
+            {
+                MessageBox.Show("Deletion cancelled.", "Delete Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
         }
 
