@@ -382,9 +382,11 @@
             // 
             // pbImage
             // 
+            this.pbImage.Image = global::DVLDProject.Properties.Resources.Male_512;
             this.pbImage.Location = new System.Drawing.Point(662, 93);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(209, 191);
+            this.pbImage.Size = new System.Drawing.Size(212, 206);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 7;
             this.pbImage.TabStop = false;
             // 
