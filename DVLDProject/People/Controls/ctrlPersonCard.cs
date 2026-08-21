@@ -42,6 +42,14 @@ namespace DVLDProject.People.Controls
             lblDOB.Text = _Person.DateOfBirth.ToString("dd/MM/yyyy");
             lblPhone.Text = _Person.Phone;
             lblCountry.Text = clsCountry.Find(_Person.NationalityCountryID).CountryName;
+            if (_Person.Gender == 0)
+            {
+                pbImage.Image = Resources.Male_512;
+            }
+            else
+            {
+                pbImage.Image = Resources.Female_512;
+            }
             // _LoadPersonImage(); a method I'll implement later to load the person's image if available
         }
 
